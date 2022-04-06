@@ -1,35 +1,35 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Sample Deployment</title>
-  <style>
-    body {
-      color: #ffffff;
-      background-color: #0188cc;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-    }
-    
-    h1 {
-      font-size: 500%;
-      font-weight: normal;
-      margin-bottom: 0;
-    }
-    
-    h2 {
-      font-size: 200%;
-      font-weight: normal;
-      margin-bottom: 0;
-    }
-  </style>
-</head>
-<body>
-  <div align="center">
-    <h1>Congratulations</h1>
-    <h2>This application was deployed using AWS CodeDeploy.</h2>
-    <p>For next steps, read the <a href="http://aws.amazon.com/documentation/codedeploy">AWS CodeDeploy Documentation</a>.</p>
-  </div>
-</body>
-</html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 40px auto;
+        max-width: 650px;
+        line-height: 1.6;
+        font-size: 18px;
+        font-family: "Courier New", Courier, monospace;
+        color: #444;
+        padding: 0 10px;
+      }
+      h2 {
+        line-height: 1.2;
+      }
+    </style>
+  </head>
 
+  <body>
+    <h2>HTTP Video Streaming</h2>
+    <p>This video is 61MB and is being streamed instead of downloaded.</p>
+    <p>
+      Feel free to seek through the video and it only loads the part you want to
+      watch
+    </p>
+    <video id="videoPlayer" width="650" controls muted="muted" autoplay>
+      <source src="/video" type="video/mp4" />
+    </video>
+    <i>Oscar Night</i>
+  </body>
+</html>
