@@ -1,3 +1,5 @@
 #!/bin/bash
-cd /var/www/html/VideoServer
-npm stop
+isExistApp = `pgrep npm`
+if [[ -n  $isExistApp ]]; then
+    npm stop        
+fi
