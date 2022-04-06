@@ -2,4 +2,4 @@
 cd /var/www/html/VideoServer
 npm init -y
 npm install --save express nodemon
-npm start
+nodemon index.js
