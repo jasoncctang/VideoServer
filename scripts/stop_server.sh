@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /var/www/html/VideoServer
+cd /var/www/html
 forever stop
