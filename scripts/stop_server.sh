@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /var/www/html
+cd /var/www/html/
 
 isExistApp = `pgrep httpd`
 if [[ -n  $isExistApp ]]; then
@@ -8,4 +8,4 @@ fi
 
 yum remove -y httpd
 
-pm2 delete all
+pm2 stop all
