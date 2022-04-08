@@ -1,4 +1,4 @@
 #!/bin/bash
-cd /var/www/html
-npm install --save express nodemon
-npm install pm2 -g
+cd /var/www/html/
+
+pm2 start index.js

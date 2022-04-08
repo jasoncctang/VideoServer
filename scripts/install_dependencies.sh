@@ -1,4 +1,9 @@
 #!/bin/bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
-. ~/.nvm/nvm.sh
-nvm install node
+cd /var/www/html/
+
+curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
+yum install -y gcc-c++ make
+yum install -y nodejs npm
+
+npm install -g pm2
+npm install
