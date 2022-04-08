@@ -8,4 +8,4 @@ fi
 
 yum remove -y httpd
 
-pm2 start npm --start
+pm2 start npm -- start
