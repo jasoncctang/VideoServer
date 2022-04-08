@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ "$NODE_ENV" = "production" ]; then
-  node index.js > app.out.log 2> app.err.log < /dev/null & 
+  npm index.js > app.out.log 2> app.err.log < /dev/null & 
 else
-  nodemon --ignore './sessions' index.js;
+  npm --ignore './sessions' index.js;
 fi
