@@ -13,6 +13,11 @@ app.listen(8000, function(){
 
 app.get("/s3-video", function(req, res){
     try{
+        const range = req.headers.range;
+        if (!range) {
+            res.status(400).send("Requires Range header");
+        }
+
         aws.config.update({
             accessKeyId: "AKIA4HPG4QKMEOWBKUED",
             secretAccessKey: "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",
@@ -20,10 +25,28 @@ app.get("/s3-video", function(req, res){
         });
 
         const s3 = new aws.S3()
+
+        const videoSize = s3.headObject({ Key: "bigbuck.mp4", Bucket: "c3learnet-videos" }).promise().then(res => res.ContentLength)
+
+        const CHUNK_SIZE = 10 ** 6; // 1MB
+        const start = Number(range.replace(/\D/g, ""));
+        const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+
         const options = {
-            Key: "Smack.mp4",
-            Bucket: "c3learnet-videos"
+            Key: "bigbuck.mp4",
+            Bucket: "c3learnet-videos",
+            Range: `bytes=${start}-${end}`
         };
+
+        const contentLength = end - start + 1;
+        const headers = {
+            "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+            "Accept-Ranges": "bytes",
+            "Content-Length": contentLength,
+            "Content-Type": "video/mp4",
+        };
+
+        res.writeHead(206, headers);
 
         res.attachment("Smack.mp4")
         const videoStream = s3.getObject(options).createReadStream();
