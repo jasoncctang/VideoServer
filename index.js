@@ -15,7 +15,7 @@ app.get("/s3-video", function(req, res){
     try{
         const range = req.headers.range;
         if (!range) {
-            res.status(400).send("Requires Range header");
+           res.status(400).send("Requires Range header");
         }
 
         aws.config.update({
@@ -26,7 +26,9 @@ app.get("/s3-video", function(req, res){
 
         const s3 = new aws.S3()
 
-        const videoSize = s3.headObject({ Key: "bigbuck.mp4", Bucket: "c3learnet-videos" }).promise().then(res => res.ContentLength)
+        // const videoSize = s3.getObjectAttributes({ Key: "bigbuck.mp4", Bucket: "c3learnet-videos" })
+
+        const videoSize = 63614462
 
         const CHUNK_SIZE = 10 ** 6; // 1MB
         const start = Number(range.replace(/\D/g, ""));
@@ -48,7 +50,6 @@ app.get("/s3-video", function(req, res){
 
         res.writeHead(206, headers);
 
-        res.attachment("Smack.mp4")
         const videoStream = s3.getObject(options).createReadStream();
         videoStream.pipe(res);
 
