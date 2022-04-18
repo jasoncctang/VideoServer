@@ -3,6 +3,13 @@ const fs = require("fs");
 const app = express();
 const aws = require('aws-sdk');
 
+var size_lookup = {
+    "bigbuck": 63614462,
+    "smack": 4588755,
+    "smashgame": 310336195,
+    "tsunami": 102217706
+}
+
 app.get("/", function(req, res){
     res.sendFile(__dirname + "/index.html");
 });
@@ -11,7 +18,7 @@ app.listen(8000, function(){
     console.log("Listening on port 8000...");
 });
 
-app.get("/s3-video", function(req, res){
+app.get("/:video", function(req, res){
     try{
         const range = req.headers.range;
         if (!range) {
@@ -26,16 +33,16 @@ app.get("/s3-video", function(req, res){
 
         const s3 = new aws.S3()
 
-        // const videoSize = s3.getObjectAttributes({ Key: "bigbuck.mp4", Bucket: "c3learnet-videos" })
+        var video = req.params.video
 
-        const videoSize = 63614462
+        const videoSize = size_lookup[video]
 
         const CHUNK_SIZE = 10 ** 6; // 1MB
         const start = Number(range.replace(/\D/g, ""));
         const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
 
         const options = {
-            Key: "bigbuck.mp4",
+            Key: video + ".mp4",
             Bucket: "c3learnet-videos",
             Range: `bytes=${start}-${end}`
         };
