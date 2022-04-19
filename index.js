@@ -21,6 +21,8 @@ app.listen(8000, function(){
 app.get("/:video", function(req, res){
     try{
         const range = req.headers.range;
+        const start_time = req.headers['start-time'];
+
         if (!range) {
            res.status(400).send("Requires Range header");
         }
@@ -54,6 +56,10 @@ app.get("/:video", function(req, res){
             "Content-Length": contentLength,
             "Content-Type": "video/mp4",
         };
+
+        if(start_time){
+            headers["Response-Time"] = Date.now() - Number(start_time);
+        }
 
         res.writeHead(206, headers);
 
